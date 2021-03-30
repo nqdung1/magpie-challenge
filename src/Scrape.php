@@ -8,9 +8,15 @@ class Scrape
 {
     private array $products = [];
 
+    const TARGET_URL = 'https://www.magpiehq.com/developer-challenge/smartphones';
+
     public function run(): void
     {
-        $document = ScrapeHelper::fetchDocument('https://www.magpiehq.com/developer-challenge/smartphones');
+        // $hrt = hrtime(true);
+        $document = ScrapeHelper::fetchDocument($this::TARGET_URL);
+        // echo "===== 1st FETCH =====" . "\r\n ";
+        // echo hrtime(true) - $hrt . "\r\n ";
+        $this->products = ScrapeHelper::fetchContent($document);
 
         file_put_contents('output.json', json_encode($this->products));
     }
